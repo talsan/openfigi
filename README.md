@@ -1,5 +1,5 @@
 # openfigi
-###### interact with bloombergs openfigi api
+examples using bloomberg's openfigi api and usage notes
 
 ### API Home
 https://www.openfigi.com/api/
