@@ -3,6 +3,7 @@ examples/notes using bloomberg's openfigi api to map tickers/company-names to bl
 
 ### Use Cases
 `mapping_tickers.py`: ticker + exchange --> bloomberg figis
+
 `search_names.py`: search name + exchange --> bloomberg figis
 
 ### Working Notes:
