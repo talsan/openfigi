@@ -1,10 +1,9 @@
 # openfigi
-examples/notes using bloomberg's openfigi api to map tickers/company-names to bloomberg figis
+Examples, notes, and refereces for using Bloomberg's OpenFIGI api to map tickers/company-names to bloomberg figis
 
-### Use Cases
-`mapping_tickers.py`: ticker + exchange --> bloomberg figis
-
-`search_names.py`: search name + exchange --> bloomberg figis
+### Examples Contained Here
+1. `mapping_tickers.py` ticker + exchange --> bloomberg figi
+2. `search_names.py` search name + exchange --> bloomberg figi
 
 ### Working Notes:
 1. Great for getting things into bloomberg ids, not out.
@@ -12,6 +11,9 @@ examples/notes using bloomberg's openfigi api to map tickers/company-names to bl
 
 ### API Home
 https://www.openfigi.com/api/
+
+### Structure
+![figi_tree](https://github.com/talsan/openfigi/blob/master/references/figi_tree.jpg?raw=true)
 
 ### Identifier Glossary
 
