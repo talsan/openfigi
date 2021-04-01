@@ -8,10 +8,10 @@ pd.set_option('max_rows', 500)
 pd.set_option('max_columns', 1000)
 
 openfigi_apikey = config.api_key
-xls = pd.ExcelFile('./tci_names/Focused Quality Holdings as of 3_23_2021.xlsx')
-fq = pd.read_excel(xls, 'ACWI-ex_US')
+xls = pd.ExcelFile(config.holdings_xls)
+fq = pd.read_excel(xls, config.holdings_xls_sheet)
 
-acwi = pd.read_csv('./tci_names/Acwi_today_editted.csv',keep_default_na=False)
+acwi = pd.read_csv(config.id_meta_file, keep_default_na=False)
 # edits = NA TSE --> NA
 
 # map exchanges

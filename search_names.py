@@ -12,9 +12,10 @@ See https://www.openfigi.com/api for more information.
 '''
 
 openfigi_apikey = config.api_key
-xls = pd.ExcelFile('./tci_names/Focused Quality Holdings as of 3_23_2021.xlsx')
-fq = pd.read_excel(xls, 'ACWI-ex_US')
-acwi = pd.read_csv('./tci_names/Acwi_today.csv')
+xls = pd.ExcelFile(config.holdings_xls)
+fq = pd.read_excel(xls, config.holdings_xls_sheet)
+
+acwi = pd.read_csv(config.id_meta_file, keep_default_na=False)
 
 # map exchanges
 # https://stockmarketmba.com/globalstockexchanges.php
