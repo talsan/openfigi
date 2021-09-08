@@ -10,6 +10,7 @@ pd.set_option('max_columns', 1000)
 openfigi_apikey = config.api_key
 xls = pd.ExcelFile(config.holdings_xls)
 fq = pd.read_excel(xls, config.holdings_xls_sheet)
+fq['wt'] = fq['VALUE']/fq['VALUE'].sum()
 
 acwi = pd.read_csv(config.id_meta_file, keep_default_na=False)
 # edits = NA TSE --> NA
@@ -47,7 +48,8 @@ for i, row in fq_w_info.iterrows():
            'idValue': row['ticker_local'],
            'exchCode': row['exchange_bb'],
            'securityType2': sec_type,
-           'marketSecDes': 'Equity'}
+           'marketSecDes': 'Equity',
+           'includeUnlistedEquities': True}
     jobs.append(job)
 
 response = requests.post(url='https://api.openfigi.com/v2/mapping',
@@ -65,13 +67,18 @@ for i,r in enumerate(response.json()):
         print(i)
         print(jobs[i])
 
-jobs_df = pd.DataFrame(jobs).reset_index().rename(columns={'index':'job_id'})
+input_df = pd.concat([pd.DataFrame(jobs),fq_w_info],axis='columns').reset_index().rename(columns={'index':'job_id'})
 
 # merge back to input
-id_map_all = jobs_df.merge(id_maps, how='left', on='job_id')
+id_map_all = input_df.merge(id_maps, how='left', on='job_id')
 
 # assert no misses
 assert(id_map_all['compositeFIGI'].isna().sum()==0)
 
 # assert no duplicates
 assert(id_map_all.groupby('job_id').size().max()==1)
+
+# assert wt == original wt
+assert(sum(fq['wt'])==sum(id_map_all['wt']))
+
+id_map_all.to_csv(config.output_file,index=False)
